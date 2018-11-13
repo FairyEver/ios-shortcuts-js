@@ -8,15 +8,11 @@ function completion (data) {
 
 // 第一部分开始
 
-function getValue (selector) {
-  return document.getElementsByClassName('article-title')[0].innerHTML
-}
-
 // 用户选择的分类
 var type = '分类名称'
 // 返回的结果
 var results = {
-  name: getValue('#juejin > div.view-container > main > div > div.main-area.article-area.shadow > article > h1'),
+  name: document.title,
   url: location.href,
   type: type
 }
