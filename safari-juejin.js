@@ -9,15 +9,16 @@ function completion (data) {
 // 第一部分开始
 
 // 用户选择的分类
-var type = '分类名称'
+var type = '选取的项目'
 // 返回的结果
 var results = {
   name: document.title,
+  note: document.title,
   url: location.href,
   type: type
 }
 
-completion(encodeURI(JSON.stringify(results)))
+completion(JSON.stringify(results))
 
 // 第一部分结束
 
@@ -50,18 +51,16 @@ function getDate () {
   return `${year}年${month}月${day}日`
 }
 
-var githubQuery = 'daily=%7B"name":"HTTP/3%20来啦，你还在等什么？赶紧了解一下","url":"https://juejin.im/post/5be977c96fb9a04a0a5eb6f5","type":"分享"%7D'
+var githubQueryObj = JSON.parse('剪贴板')
 
-var githubQueryObj = JSON.parse(decodeURI(githubQuery).substr(6))
-
-document.querySelector('#new_issue > div > input').value = `🔗 日报提交 | ${githubQueryObj.type} | ${githubQueryObj.name}`
+document.querySelector('#new_issue > div > input').value = `🔗 日报提交 | ${githubQueryObj.name}`
 
 document.querySelector('#new_issue > div > textarea').value = `
 **:hash: 标题** : ${githubQueryObj.name}
 
-**:link: 链接** : [${githubQueryObj.url}](${githubQueryObj.url})
+**:page_with_curl: 介绍** : ${githubQueryObj.note}
 
-**:page_with_curl: 介绍** : 暂无
+**:link: 链接** : [${githubQueryObj.url}](${githubQueryObj.url})
 
 **:pencil2: Markdown**
 
@@ -69,6 +68,7 @@ document.querySelector('#new_issue > div > textarea').value = `
 - name: ${githubQueryObj.type}
   list:
   - name: ${githubQueryObj.name}
+    note: ${githubQueryObj.note}
     url: ${githubQueryObj.url}
 \`\`\`
 
